@@ -11,31 +11,10 @@ public class WriteToMySql {
 	static Statement st = null;
 	static ResultSet rs = null;
 
-	public static void connection() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	public String connectionToMySql(int input) {
-		connection();
-//		String host = "jdbc:mysql://localhost:3306/Homey?autoReconnect=true&useSSL=false";
-//		String username = "root";
-//		String password = "tjh199208";
-		
-//		 String host = "jdbc:mysql://au-cdbr-azure-southeast-a.cloudapp.net:3306/homeymsql?autoReconnect=true&useSSL=false";
-//		 String username = "b84c8d66cf6a94";
-//		 String password = "d3bbe525";
-
 		ArrayList<Hobby> hobbyArray = new ArrayList<>();
 		try {
-//			Connection connect = DriverManager.getConnection(host, username, password);
-//			st = connect.createStatement();
-//			rs = st.executeQuery("SELECT * FROM hobby where kind = " + input + ";");
-			rs = ConnectDB.getStatement().executeQuery("select * from hobby where kind="+input+";");
+			rs = ConnectDB.getStatement().executeQuery("select * from hobby where kind=" + input + ";");
 			while (rs.next()) {
 				Hobby hobbyData = new Hobby();
 				hobbyData.setName_of_hobby(rs.getString(1));
@@ -47,12 +26,30 @@ public class WriteToMySql {
 				hobbyData.setComments(rs.getString(7));
 				hobbyArray.add(hobbyData);
 			}
-
 		} catch (SQLException e) {
 			System.out.println(e.toString());
 		}
+		// return jsonTransfer(hobbyArray); 之前返回所有jason 格式的address
+		return addressArray(hobbyArray);
+	}
 
-		return jsonTransfer(hobbyArray);
+	public String addressArray(ArrayList<Hobby> arrayList) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("\"allAddress\":\"[");
+		for (int i = 0; i < arrayList.size(); i++) {
+			sb.append("\'");
+			sb.append(arrayList.get(i).getAddress());
+			sb.append(",");
+			sb.append(arrayList.get(i).getSuburb());
+			sb.append(",");
+			sb.append(arrayList.get(i).getState());
+			sb.append(",");
+			sb.append(arrayList.get(i).postcode());
+			sb.append("\',");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		sb.append("]\"");
+		return sb.toString();
 	}
 
 	public String jsonTransfer(ArrayList<Hobby> arrayList) {
@@ -60,8 +57,6 @@ public class WriteToMySql {
 		sb.append("[");
 		for (int i = 0; i < arrayList.size(); i++) {
 			sb.append("{\"name\":\"");
-			// sb.append(arrayList.get(i).getKind());
-			// sb.append("\",\"name_of_trainer\":\"");
 			sb.append(arrayList.get(i).getName_of_hobby());
 			sb.append("\",\"address\":\"");
 			sb.append(arrayList.get(i).getAddress());
