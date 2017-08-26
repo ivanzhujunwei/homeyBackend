@@ -35,9 +35,9 @@ public class WriteToMySql {
 
 	public String addressArray(ArrayList<Hobby> arrayList) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\"allAddress\":\"[");
+		sb.append("[");
 		for (int i = 0; i < arrayList.size(); i++) {
-			sb.append("\'");
+			sb.append("{\"allAddress\":\"");
 			sb.append(arrayList.get(i).getAddress());
 			sb.append(",");
 			sb.append(arrayList.get(i).getSuburb());
@@ -45,7 +45,7 @@ public class WriteToMySql {
 			sb.append(arrayList.get(i).getState());
 			sb.append(",");
 			sb.append(arrayList.get(i).postcode());
-			sb.append("\',");
+			sb.append("\"},");
 		}
 		sb.deleteCharAt(sb.length() - 1);
 		sb.append("]\"");
