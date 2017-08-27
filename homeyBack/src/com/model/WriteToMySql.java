@@ -14,7 +14,7 @@ public class WriteToMySql {
 	public String connectionToMySql(int input) {
 		ArrayList<Hobby> hobbyArray = new ArrayList<>();
 		try {
-			rs = ConnectDB.getStatement().executeQuery("select * from hobby where kind=" + input + ";");
+			rs = ConnectDB.getStatement().executeQuery("select * from hobby where kind =" + input + ";");
 			while (rs.next()) {
 				Hobby hobbyData = new Hobby();
 				hobbyData.setName_of_hobby(rs.getString(1));
@@ -48,7 +48,7 @@ public class WriteToMySql {
 			sb.append("\"},");
 		}
 		sb.deleteCharAt(sb.length() - 1);
-		sb.append("]\"");
+		sb.append("]");
 		return sb.toString();
 	}
 
