@@ -22,10 +22,10 @@ public class AngularJsServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// String paraValue = request.getParameter("hobbyKind");
-		// int kind = Integer.parseInt(paraValue);
+		String paraValue = request.getParameter("hobbyKind");
+		int kind = Integer.parseInt(paraValue);
 		WriteToMySql wri = new WriteToMySql();
 		response.setContentType("application/json");
-		response.getWriter().write(wri.connectionToMySql(1));
+		response.getWriter().write(wri.connectionToMySql(kind));
 	}
 }
