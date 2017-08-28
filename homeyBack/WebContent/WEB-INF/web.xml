@@ -33,4 +33,14 @@
 		<servlet-name>getHobbyDetailServlet</servlet-name>
 		<url-pattern>/getHobbyDetailServlet</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>eventServlet</servlet-name>
+		<servlet-class>com.servlet.EventServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>eventServlet</servlet-name>
+		<url-pattern>/eventSearhServlet</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
