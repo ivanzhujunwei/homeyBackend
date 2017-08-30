@@ -28,11 +28,13 @@ public class UserServlet extends HttpServlet {
 		String servletPath = request.getServletPath();
 
 		if ("/loginServlet".equalsIgnoreCase(servletPath)) {
-			String userName = request.getParameter("userName");
+			String userName = request.getParameter("email");
 			String password = request.getParameter("password");
+
 			supportUserServlet lv = new supportUserServlet();
 			response.setContentType("application/json");
 			response.getWriter().write(lv.whetherUserValid(userName, password));
+
 		} else if ("/registerServlet".equalsIgnoreCase(servletPath)) {
 
 		}
