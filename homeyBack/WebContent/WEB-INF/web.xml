@@ -40,7 +40,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>eventServlet</servlet-name>
-		<url-pattern>/eventSearhServlet</url-pattern>
+		<url-pattern>/eventSearchServlet</url-pattern>
 	</servlet-mapping>
 	
 </web-app>

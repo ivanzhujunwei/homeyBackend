@@ -25,12 +25,10 @@ public class EventServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String servletPath = request.getServletPath();
-
-		if ("/eventSearhServlet".equalsIgnoreCase(servletPath)) {
-
-			// String paraTime = request.getParameter("eventTime");
-			// String paraType = request.getParameter("eventType");
-			// String paraSuburb = request.getParameter("eventSuburb");
+		if ("/eventSearchServlet".equalsIgnoreCase(servletPath)) {
+			String paraTime = request.getParameter("eventTime");
+			String paraType = request.getParameter("eventType");
+			String paraSuburb = request.getParameter("eventSuburb");
 			AllEvent allEvent = new AllEvent();
 			response.setContentType("application/json");
 			response.getWriter().write(allEvent.connectionToMySql("Reading Writing", "ormond", "2017-08-09 14:00:00"));
