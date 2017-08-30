@@ -11,13 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.model.AllEvent;
+import com.model.supportUserServlet;
 
-public class EventServlet extends HttpServlet {
+public class UserServlet extends HttpServlet {
 	static Statement st = null;
 	static ResultSet rs = null;
 	private static final long serialVersionUID = 1L;
 
-	public EventServlet() {
+	public UserServlet() {
 		super();
 	}
 
@@ -25,14 +26,15 @@ public class EventServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String servletPath = request.getServletPath();
-		if ("/eventSearchServlet".equalsIgnoreCase(servletPath)) {
-			String paraTime = request.getParameter("eventTime");
-			String paraType = request.getParameter("eventType");
-			String paraSuburb = request.getParameter("eventSuburb");
-			AllEvent allEvent = new AllEvent();
-			response.setContentType("application/json");
-			response.getWriter().write(allEvent.connectionToMySql("Reading Writing", "ormond", "2017-08-09 14:00:00"));
-		}
 
+		if ("/loginServlet".equalsIgnoreCase(servletPath)) {
+			String userName = request.getParameter("userName");
+			String password = request.getParameter("password");
+			supportUserServlet lv = new supportUserServlet();
+			response.setContentType("application/json");
+			response.getWriter().write(lv.whetherUserValid(userName, password));
+		} else if ("/registerServlet".equalsIgnoreCase(servletPath)) {
+
+		}
 	}
 }
