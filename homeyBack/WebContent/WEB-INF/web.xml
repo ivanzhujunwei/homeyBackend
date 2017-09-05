@@ -35,21 +35,14 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>eventServlet</servlet-name>
-		<servlet-class>com.servlet.EventServlet</servlet-class>
+		<servlet-name>weatherServlet</servlet-name>
+		<servlet-class>com.servlet.WeatherServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>eventServlet</servlet-name>
-		<url-pattern>/eventSearchServlet</url-pattern>
-	</servlet-mapping>
-	
-		<servlet>
-		<servlet-name>userServlet</servlet-name>
-		<servlet-class>com.servlet.UserServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>userServlet</servlet-name>
-		<url-pattern>/loginServlet</url-pattern>
+		<servlet-name>weatherServlet</servlet-name>
+
+		<url-pattern>/lonLatServlet</url-pattern>
+		<url-pattern>/postOrSubServlet</url-pattern>
 	</servlet-mapping>
 	
 	
