@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
 
 import com.db.ConnectDB;
 
-public class ReturnSportAddress {
+public class ReturnAddress {
 	static Statement st = null;
 	static ResultSet rsGetId = null;
 	static ResultSet rsGetAdd = null;
@@ -34,6 +34,8 @@ public class ReturnSportAddress {
 					sb.append(rsGetAdd.getString(3));
 					sb.append("=");
 					sb.append(sp);
+					sb.append("=");
+					sb.append(getIcon(sp));
 					sb.append("^");
 				}
 			} catch (SQLException e) {
@@ -43,6 +45,68 @@ public class ReturnSportAddress {
 		if (sb.length() > 0)
 			sb.deleteCharAt(sb.length() - 1);
 		// System.out.println(sb.toString());
+		return sb.toString();
+	}
+
+	public static String getIcon(String sport) {
+		switch (sport) {
+		case "Park":
+			return "bicycle";
+		case "Reading":
+			return "reading.png";
+		case "Fintness":
+			return "fitness.png";
+		case "Swimming":
+			return "swimming.png";
+		case "Badminton":
+			return "badminton.png";
+		case "Health Services / Pharmacy":
+			return "pharmacy.png";
+		case "Hospitals / Emergency":
+			return "hospital.png";
+		case "Counselling and Psychiatric Services":
+			return "counselling.png";
+		default:
+			return "null";
+		}
+
+	}
+
+	public static String returnAddFamVio(String postSub) {
+		try {
+			Integer.valueOf(postSub);
+			String suburb = ReturnWeatherAndAct.getSuburb(postSub);
+			return returnAddOnSub(suburb);
+		} catch (Exception e) {
+			if (e.toString().contains("string")) {
+				return returnAddOnSub(postSub);
+			}
+		}
+		return "no place";
+	}
+
+	public static String returnAddOnSub(String suburb) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			rsGetAdd = ConnectDB.getStatement()
+					.executeQuery("select name_of_trainer, address, suburb,comments from hobby where suburb ='" + suburb
+							+ "' and kind = '11';");
+			sb.append("{\"allAddress\":\"");
+			while (rsGetAdd.next()) {
+				sb.append(rsGetAdd.getString(1));
+				sb.append("=");
+				sb.append(rsGetAdd.getString(2));
+				sb.append(",");
+				sb.append(rsGetAdd.getString(3));
+				sb.append("=");
+				sb.append(getIcon(rsGetAdd.getString(4).split("=")[0]));
+				sb.append("^");
+			}
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		sb.append("\"}");
 		return sb.toString();
 	}
 

@@ -18,13 +18,13 @@ public class WriteToMySql {
 			rs = ConnectDB.getStatement().executeQuery("select * from hobby where kind =" + input + ";");
 			while (rs.next()) {
 				Hobby hobbyData = new Hobby();
-				hobbyData.setName_of_hobby(rs.getString(1));
-				hobbyData.setAddress(rs.getString(2));
-				hobbyData.setSuburb(rs.getString(3));
-				hobbyData.setState(rs.getString(4));
-				hobbyData.setPostcode(rs.getInt(5));
-				hobbyData.setPhone_number(rs.getString(6));
-				hobbyData.setComments(rs.getString(7));
+				hobbyData.setName_of_hobby(rs.getString(2));
+				hobbyData.setAddress(rs.getString(3));
+				hobbyData.setSuburb(rs.getString(4));
+				hobbyData.setState(rs.getString(5));
+				hobbyData.setPostcode(rs.getInt(6));
+				hobbyData.setPhone_number(rs.getString(7));
+				hobbyData.setComments(rs.getString(8));
 				hobbyArray.add(hobbyData);
 			}
 		} catch (SQLException e) {
