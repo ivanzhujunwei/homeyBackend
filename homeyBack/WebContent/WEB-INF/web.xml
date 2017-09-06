@@ -45,5 +45,13 @@
 		<url-pattern>/postOrSubServlet</url-pattern>
 	</servlet-mapping>
 	
+		<servlet>
+		<servlet-name>postOrSubViolenceServlet</servlet-name>
+		<servlet-class>com.servlet.ViolenceServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>postOrSubViolenceServlet</servlet-name>
+		<url-pattern>/postOrSubViolenceServlet</url-pattern>
+	</servlet-mapping>
 	
 </web-app>

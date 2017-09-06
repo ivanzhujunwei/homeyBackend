@@ -18,9 +18,15 @@ public class ConnectDB {
 
 	public static Statement getStatement() {
 		connection();
-		String host = "jdbc:mysql://au-cdbr-azure-southeast-a.cloudapp.net:3306/homeymsql?autoReconnect=true&useSSL=false";
-		String username = "b84c8d66cf6a94";
-		String password = "d3bbe525";
+		String host = "jdbc:mysql://au-cdbr-azure-southeast-a.cloudapp.net:3306/homeydb?autoReconnect=true&useSSL=false";
+		String username = "be47b226a641c9";
+		String password = "136a5ca4";
+
+		// String host =
+		// "jdbc:mysql://localhost:3306/Homey?autoReconnect=true&useSSL=false";
+		// String username = "root";
+		// String password = "tjh199208";
+
 		Connection connect;
 		try {
 			connect = DriverManager.getConnection(host, username, password);

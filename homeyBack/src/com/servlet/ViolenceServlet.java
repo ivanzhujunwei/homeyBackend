@@ -9,22 +9,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.model.ReturnAllHobby;
+import com.model.ReturnAddress;
+import com.model.supportUserServlet;
 
-public class GetAllHobbyServlet extends HttpServlet {
+public class ViolenceServlet extends HttpServlet {
 	static Statement st = null;
 	static ResultSet rs = null;
 	private static final long serialVersionUID = 1L;
 
-	public GetAllHobbyServlet() {
+	public ViolenceServlet() {
 		super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		ReturnAllHobby rh = new ReturnAllHobby();
+		String subOrPost = request.getParameter("subOrPost");
 		response.setContentType("application/json");
-		response.getWriter().write(rh.connectionToMySql());
+		response.getWriter().write(ReturnAddress.returnAddFamVio(subOrPost));
+		// response.getWriter().write(ReturnAddress.returnAddFamVio("3000"));
+
 	}
 }

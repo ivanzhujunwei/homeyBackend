@@ -4,10 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import com.db.ConnectDB;
 
-public class ReturnSportAddress {
+public class ReturnAddress {
 	static Statement st = null;
 	static ResultSet rsGetId = null;
 	static ResultSet rsGetAdd = null;
@@ -34,6 +37,8 @@ public class ReturnSportAddress {
 					sb.append(rsGetAdd.getString(3));
 					sb.append("=");
 					sb.append(sp);
+					sb.append("=");
+					sb.append(getIcon(sp));
 					sb.append("^");
 				}
 			} catch (SQLException e) {
@@ -44,6 +49,99 @@ public class ReturnSportAddress {
 			sb.deleteCharAt(sb.length() - 1);
 		// System.out.println(sb.toString());
 		return sb.toString();
+	}
+
+	public static String getIcon(String sport) {
+		switch (sport) {
+		case "Park":
+			return "bicycle";
+		case "Reading":
+			return "reading.png";
+		case "Fintness":
+			return "fitness.png";
+		case "Swimming":
+			return "swimming.png";
+		case "Badminton":
+			return "badminton.png";
+		case "Health Services / Pharmacy":
+			return "pharmacy.png";
+		case "Hospitals / Emergency":
+			return "hospital.png";
+		case "Counselling and Psychiatric Services":
+			return "counselling.png";
+		default:
+			return "null";
+		}
+
+	}
+
+	public static String returnAddFamVio(String postSub) {
+		try {
+			Integer.valueOf(postSub);
+			String suburb = ReturnWeatherAndAct.getSuburb(postSub);
+			return returnAddOnSub(suburb);
+		} catch (Exception e) {
+			if (e.toString().contains("string")) {
+				return returnAddOnSub(postSub);
+			}
+		}
+		return "no place";
+	}
+
+	public static String returnAddOnSub(String suburb) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			rsGetAdd = ConnectDB.getStatement().executeQuery(
+					"select name_of_trainer, address, suburb,comments, phone_number from hobby where suburb ='" + suburb
+							+ "' and kind = '11';");
+			sb.append("{\"allAddress\":\"");
+			while (rsGetAdd.next()) {
+				sb.append(rsGetAdd.getString(1));
+				sb.append("=");
+				sb.append(rsGetAdd.getString(2));
+				sb.append(",");
+				sb.append(rsGetAdd.getString(3));
+				sb.append("=");
+				sb.append(getIcon(rsGetAdd.getString(4).split("=")[0]));
+				sb.append("=");
+				sb.append(rsGetAdd.getString(5));
+				sb.append("=");
+				sb.append(rsGetAdd.getString(4).split("=")[returnDay()]);
+				if (rsGetAdd.getString(4).split("=").length == 9) {
+					sb.append("=");
+					sb.append(rsGetAdd.getString(4).split("=")[8]);
+				} else {
+					sb.append("=");
+					sb.append("not available");
+				}
+				sb.append("^");
+			}
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		sb.append("\"}");
+		return sb.toString();
+	}
+
+	// 0 Counselling and Psychiatric Services =
+	// 1 9.00am - 5.00pm =
+	// 2 9.00am - 5.00pm =
+	// 3 9.00am - 5.00pm =
+	// 4 9.00am - 5.00pm =
+	// 5 9.00am - 5.00pm =
+	// 6 Closed =
+	// 7 Closed =
+	// 8 24, 109 (stop 18 Grant St) =
+	// 9 bus
+
+	public static int returnDay() {
+		Date now = new Date();
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("E"); // the day of the week abbreviated
+		simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(now);
+		return calendar.get(Calendar.DAY_OF_WEEK);
 	}
 
 	// return address based on longitude , latitude and sports
@@ -102,9 +200,10 @@ public class ReturnSportAddress {
 	// }
 
 	// public static void main(String[] arg) {
-	// // getWeatherData("34,134");
-	// // returnAddOnPost("3000", "fitness,swimming,badminton,reading/wriging");
+	// getWeatherData("34,134");
+	// returnAddOnPost("3000", "fitness,swimming,badminton,reading/wriging");
 	// returnAddOnSuburb("Melbourne", "park");
-	// // returnPostCode("-37.810,144.970");
+	// returnPostCode("-37.810,144.970");
+	// returnDay();
 	// }
 }

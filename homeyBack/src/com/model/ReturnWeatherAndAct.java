@@ -60,6 +60,18 @@ public class ReturnWeatherAndAct {
 		return "error";
 	}
 
+	public static String getSuburb(String subLatLon) {
+		StringBuilder sb = new StringBuilder();
+		String[] transfer = getWeatherDataLatLon("", "", subLatLon).split(":");
+		for (int i = 30; i < transfer.length;) {
+			if (transfer[i].contains("name")) {
+				sb.append(transfer[i + 1].split(",")[0].replaceAll("\"", ""));
+				return sb.toString();
+			}
+		}
+		return sb.toString();
+	}
+
 	// return all info based on the latitude and longtitude, support /weatherServlet
 	public static String returnOnLatLon(String latLon) {
 		String[] transfer = getWeatherDataLatLon(latLon, "", "").split(":");
@@ -113,9 +125,9 @@ public class ReturnWeatherAndAct {
 			sb.append("[" + "{\"class\":" + "\"rainy\"," + "\"suburb\":\"" + suburb + "\",\"weather\":"
 					+ transfer[6].split(",")[0] + ", \"degree\":\""
 					+ df.format((Double.parseDouble(transfer[11].split(",")[0]) - 273.15)) + "\","
-					+ "\"allEvents\": \"fitness^swimming^badminton^reading\"," + "\"allAddress\":\""
-					+ ReturnSportAddress.returnAddOnSuburb(suburb, "Fintness,Swimming,Badminton,Reading") + "\""
-					+ ",\"allEventsClass\":\"icon-sport-072^icon-sport-164^icon-sport-007^icon-education-137\",\"allEventsBgColor\":\"g-bg-pink\n"
+					+ "\"allEvents\": \"Fitness^Swimming^Badminton^Reading\"," + "\"allAddress\":\""
+					+ ReturnAddress.returnAddOnSuburb(suburb, "Fintness,Swimming,Badminton,Reading") + "\""
+					+ ",\"allEventsClass\":\"icon-sport-072^icon-sport-164^icon-sport-007^icon-education-137\",\"allEventsBgColor\":\"g-bg-pink"
 					+ "^g-bg-blue^g-bg-orange^g-bg-purple\"" + "}]");
 			return sb.toString();
 
@@ -127,14 +139,16 @@ public class ReturnWeatherAndAct {
 				type = "cloudy";
 			// return weather info, degree, activities, and the address when weather is
 			// clear and cloud
+
 			// sb.append("[" + "{\"class\":\"" + "rainy" + "\",\"suburb\":\"" + suburb +
 			// "\",\"weather\":"
 			sb.append("[" + "{\"class\":\"" + type + "\",\"suburb\":\"" + suburb + "\",\"weather\":"
 					+ transfer[6].split(",")[0] + ", \"degree\":\""
 					+ df.format((Double.parseDouble(transfer[11].split(",")[0]) - 273.15)) + "\","
-					+ "\"allEvents\": \"Bicycle^Running or Walking\"," + "\"allAddress\": \""
-					+ ReturnSportAddress.returnAddOnSuburb(suburb, "park") + "\""
-					+ ",\"allEventsClass\":\"icon-travel-090^icon-sport-137\",\"allEventsBgColor\":\"g-bg-lightred^g-bg-yellow\""
+					+ "\"allEvents\": \"Bicycle,Running or Walking^Fitness^Swimming^Badminton^Reading\","
+					+ "\"allAddress\": \""
+					+ ReturnAddress.returnAddOnSuburb(suburb, "Park,Reading,Fintness,Swimming,Badminton") + "\""
+					+ ",\"allEventsClass\":\"icon-travel-090^icon-sport-137^icon-sport-072^icon-sport-164^icon-sport-007\",\"allEventsBgColor\":\"g-bg-lightred^g-bg-yellow^g-bg-pink^g-bg-blue^g-bg-orange\""
 					+ "}]");
 			return sb.toString();
 		}
