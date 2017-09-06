@@ -10,21 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.model.ReturnAllHobby;
+
 public class GetAllHobbyServlet extends HttpServlet {
 	static Statement st = null;
 	static ResultSet rs = null;
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public GetAllHobbyServlet() {
-            super();
-    }
-    
-    
-    protected void doGet(HttpServletRequest request,
-        HttpServletResponse response) throws ServletException, IOException {
+	public GetAllHobbyServlet() {
+		super();
+	}
 
-    			ReturnAllHobby rh = new ReturnAllHobby();
-            response.setContentType("application/json");
-            response.getWriter().write(rh.connectionToMySql());
-    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		ReturnAllHobby rh = new ReturnAllHobby();
+		response.setContentType("application/json");
+		response.getWriter().write(rh.connectionToMySql());
+	}
 }
