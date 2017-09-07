@@ -7,6 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.text.DecimalFormat;
+import java.io.File;
+import java.io.IOException;
 
 //weather api
 public class ReturnWeatherAndAct {
@@ -91,7 +93,7 @@ public class ReturnWeatherAndAct {
 		try {
 			int postcode = Integer.valueOf(postOrSub);
 			String[] transfer = getWeatherDataLatLon("", "", postOrSub).split(":");
-			for (int i = 30; i < transfer.length;) {
+			for (int i = 30; i < transfer.length; i++) {
 				if (transfer[i].contains("name")) {
 					suburb = transfer[i + 1].split(",")[0].replaceAll("\"", "");
 					return returnAllInfo(transfer, suburb);
@@ -100,7 +102,7 @@ public class ReturnWeatherAndAct {
 		} catch (Exception e) {
 			if (e.toString().contains("string")) {
 				String[] transfer = getWeatherDataLatLon("", postOrSub, "").split(":");
-				for (int i = 30; i < transfer.length;) {
+				for (int i = 30; i < transfer.length; i++) {
 					if (transfer[i].contains("name")) {
 						suburb = transfer[i + 1].split(",")[0].replaceAll("\"", "");
 						return returnAllInfo(transfer, postOrSub);
@@ -148,7 +150,7 @@ public class ReturnWeatherAndAct {
 					+ "\"allEvents\": \"Bicycle,Running or Walking^Fitness^Swimming^Badminton^Reading\","
 					+ "\"allAddress\": \""
 					+ ReturnAddress.returnAddOnSuburb(suburb, "Park,Reading,Fintness,Swimming,Badminton") + "\""
-					+ ",\"allEventsClass\":\"icon-travel-090^icon-sport-137^icon-sport-072^icon-sport-164^icon-sport-007\",\"allEventsBgColor\":\"g-bg-lightred^g-bg-yellow^g-bg-pink^g-bg-blue^g-bg-orange\""
+					+ ",\"allEventsClass\":\"icon-travel-090^icon-sport-137^icon-sport-072^icon-sport-164^icon-sport-007^icon-education-137\",\"allEventsBgColor\":\"g-bg-lightred^g-bg-yellow^g-bg-pink^g-bg-blue^g-bg-orange^g-bg-purple\""
 					+ "}]");
 			return sb.toString();
 		}
@@ -159,5 +161,27 @@ public class ReturnWeatherAndAct {
 	// getWeatherDataLatLon("34,134", "", "");
 	// // returnOnLatLon("-37.810,144.970");
 	// // returnOnPostOrSub("3000");
+	// }package
+
+	// public class CreateFileExample
+	// {
+	// public static void main( String[] args )
+	// {
+	// try {
+	//
+	// File file = new File("c:\\newfile.txt");
+	//
+	// if (file.createNewFile()){
+	// System.out.println("File is created!");
+	// }else{
+	// System.out.println("File already exists.");
 	// }
+	//
+	// } catch (IOException e) {
+	// e.printStackTrace();
+	// }
+	// }
+	// }
+	//
+
 }
