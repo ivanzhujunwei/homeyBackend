@@ -1,5 +1,6 @@
 package com.model;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,30 +12,27 @@ import java.util.Date;
 import com.db.ConnectDB;
 
 public class ReturnAddress {
-	static Statement st = null;
-	static ResultSet rsGetId = null;
-	static ResultSet rsGetAdd = null;
-	static ResultSet rsGetSuburb = null;
 
-	// return address based on suburb and sports
 	public static String returnAddOnSuburb(String suburb, String sport) {
 		String[] sports = sport.split(",");
 		StringBuilder sb = new StringBuilder();
 		for (String sp : sports) {
 			try {
 				int id = 0;
-				rsGetId = ConnectDB.getStatement().executeQuery("select id from dict where name ='" + sp + "';");
-				while (rsGetId.next())
-					id = rsGetId.getInt(1);
-				rsGetAdd = ConnectDB.getStatement()
+				ConnectDB.closeConnection();
+				ConnectDB.rs = ConnectDB.getStatement().executeQuery("select id from dict where name ='" + sp + "';");
+				while (ConnectDB.rs.next())
+					id = ConnectDB.rs.getInt(1);
+				ConnectDB.closeConnection();
+				ConnectDB.rs = ConnectDB.getStatement()
 						.executeQuery("select name_of_trainer, address, suburb from hobby where suburb ='" + suburb
 								+ "' and kind = '" + id + "';");
-				while (rsGetAdd.next()) {
-					sb.append(rsGetAdd.getString(1));
+				while (ConnectDB.rs.next()) {
+					sb.append(ConnectDB.rs.getString(1));
 					sb.append("=");
-					sb.append(rsGetAdd.getString(2));
+					sb.append(ConnectDB.rs.getString(2));
 					sb.append(",");
-					sb.append(rsGetAdd.getString(3));
+					sb.append(ConnectDB.rs.getString(3));
 					sb.append("=");
 					sb.append(sp);
 					sb.append("=");
@@ -47,7 +45,7 @@ public class ReturnAddress {
 		}
 		if (sb.length() > 0)
 			sb.deleteCharAt(sb.length() - 1);
-		// System.out.println(sb.toString());
+		ConnectDB.closeConnection();
 		return sb.toString();
 	}
 
@@ -79,37 +77,38 @@ public class ReturnAddress {
 		try {
 			Integer.valueOf(postSub);
 			String suburb = ReturnWeatherAndAct.getSuburb(postSub);
-			return returnAddOnSub(suburb);
+			return returnFamilyAdd(suburb);
 		} catch (Exception e) {
 			if (e.toString().contains("string")) {
-				return returnAddOnSub(postSub);
+				return returnFamilyAdd(postSub);
 			}
 		}
 		return "no place";
 	}
 
-	public static String returnAddOnSub(String suburb) {
+	public static String returnFamilyAdd(String suburb) {
 		StringBuilder sb = new StringBuilder();
 		try {
-			rsGetAdd = ConnectDB.getStatement().executeQuery(
+			ConnectDB.closeConnection();
+			ConnectDB.rs = ConnectDB.getStatement().executeQuery(
 					"select name_of_trainer, address, suburb,comments, phone_number from hobby where suburb ='" + suburb
 							+ "' and kind = '11';");
 			sb.append("{\"allAddress\":\"");
-			while (rsGetAdd.next()) {
-				sb.append(rsGetAdd.getString(1));
+			while (ConnectDB.rs.next()) {
+				sb.append(ConnectDB.rs.getString(1));
 				sb.append("=");
-				sb.append(rsGetAdd.getString(2));
+				sb.append(ConnectDB.rs.getString(2));
 				sb.append(",");
-				sb.append(rsGetAdd.getString(3));
+				sb.append(ConnectDB.rs.getString(3));
 				sb.append("=");
-				sb.append(getIcon(rsGetAdd.getString(4).split("=")[0]));
+				sb.append(getIcon(ConnectDB.rs.getString(4).split("=")[0]));
 				sb.append("=");
-				sb.append(rsGetAdd.getString(5));
+				sb.append(ConnectDB.rs.getString(5));
 				sb.append("=");
-				sb.append(rsGetAdd.getString(4).split("=")[returnDay()]);
-				if (rsGetAdd.getString(4).split("=").length == 9) {
+				sb.append(ConnectDB.rs.getString(4).split("=")[returnDay()]);
+				if (ConnectDB.rs.getString(4).split("=").length == 9) {
 					sb.append("=");
-					sb.append(rsGetAdd.getString(4).split("=")[8]);
+					sb.append(ConnectDB.rs.getString(4).split("=")[8]);
 				} else {
 					sb.append("=");
 					sb.append("not available");
