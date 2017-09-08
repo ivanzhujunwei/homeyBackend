@@ -22,9 +22,7 @@ public class GetAllHobbyServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		ReturnAllHobby rh = new ReturnAllHobby();
 		response.setContentType("application/json");
-		response.getWriter().write(rh.connectionToMySql());
+		response.getWriter().write(ReturnAllHobby.connectionToMySql());
 	}
 }

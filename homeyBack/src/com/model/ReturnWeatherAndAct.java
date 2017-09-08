@@ -5,17 +5,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.text.DecimalFormat;
-import java.io.File;
-import java.io.IOException;
 
 //weather api
 public class ReturnWeatherAndAct {
 	private static String BASE_URL = "http://api.openweathermap.org/data/2.5/weather?&APPID=ddc2cd1804e64a346f64e61c5a10c814&lat=<&lon=>";
 	private static String BASE_URL_SUBURB = "http://api.openweathermap.org/data/2.5/weather?&APPID=ddc2cd1804e64a346f64e61c5a10c814&q=>";
 	private static String BASE_URL_POSTCODE = "http://api.openweathermap.org/data/2.5/weather?&APPID=ddc2cd1804e64a346f64e61c5a10c814&zip=>,au";
-	static ResultSet rs = null;
 
 	public static String getWeatherDataLatLon(String latLon, String suburb, String postcode) {
 
@@ -62,10 +58,10 @@ public class ReturnWeatherAndAct {
 		return "error";
 	}
 
-	public static String getSuburb(String subLatLon) {
+	public static String getSuburb(String post) {
 		StringBuilder sb = new StringBuilder();
-		String[] transfer = getWeatherDataLatLon("", "", subLatLon).split(":");
-		for (int i = 30; i < transfer.length;) {
+		String[] transfer = getWeatherDataLatLon("", "", post).split(":");
+		for (int i = 30; i < transfer.length; i++) {
 			if (transfer[i].contains("name")) {
 				sb.append(transfer[i + 1].split(",")[0].replaceAll("\"", ""));
 				return sb.toString();
@@ -78,7 +74,7 @@ public class ReturnWeatherAndAct {
 	public static String returnOnLatLon(String latLon) {
 		String[] transfer = getWeatherDataLatLon(latLon, "", "").split(":");
 		String suburb = "";
-		for (int i = 30; i < transfer.length; i++) {
+		for (int i = 29; i < transfer.length; i++) {
 			if (transfer[i].contains("name")) {
 				suburb = transfer[i + 1].split(",")[0].replaceAll("\"", "");
 				i = transfer.length;
@@ -150,7 +146,7 @@ public class ReturnWeatherAndAct {
 					+ "\"allEvents\": \"Bicycle,Running or Walking^Fitness^Swimming^Badminton^Reading\","
 					+ "\"allAddress\": \""
 					+ ReturnAddress.returnAddOnSuburb(suburb, "Park,Reading,Fintness,Swimming,Badminton") + "\""
-					+ ",\"allEventsClass\":\"icon-travel-090^icon-sport-137^icon-sport-072^icon-sport-164^icon-sport-007^icon-education-137\",\"allEventsBgColor\":\"g-bg-lightred^g-bg-yellow^g-bg-pink^g-bg-blue^g-bg-orange^g-bg-purple\""
+					+ ",\"allEventsClass\":\"icon-travel-090^icon-sport-072^icon-sport-164^icon-sport-007^icon-education-137\",\"allEventsBgColor\":\"g-bg-lightred^g-bg-pink^g-bg-blue^g-bg-orange^g-bg-purple\""
 					+ "}]");
 			return sb.toString();
 		}
