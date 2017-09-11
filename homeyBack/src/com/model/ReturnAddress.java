@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.common.Logfile;
 import com.db.ConnectDB;
 
 public class ReturnAddress {
@@ -16,6 +17,7 @@ public class ReturnAddress {
 	public static String returnAddOnSuburb(String suburb, String sport) {
 		String[] sports = sport.split(",");
 		StringBuilder sb = new StringBuilder();
+		long startTime = System.nanoTime();
 		for (String sp : sports) {
 			try {
 				int id = 0;
@@ -43,6 +45,9 @@ public class ReturnAddress {
 				System.out.println(e.toString());
 			}
 		}
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		Logfile.log("Time for assembling data for looping all sports: "+ duration);
 		if (sb.length() > 0)
 			sb.deleteCharAt(sb.length() - 1);
 		ConnectDB.closeConnection();
