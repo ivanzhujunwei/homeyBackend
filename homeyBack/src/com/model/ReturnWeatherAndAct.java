@@ -117,16 +117,14 @@ public class ReturnWeatherAndAct {
 		StringBuilder sb = new StringBuilder();
 		DecimalFormat df = new DecimalFormat("#.#");
 		// start time
-		long startTime = System.nanoTime();
 		if (transfer[6].contains("Rain") || transfer[6].contains("Mist") || transfer[6].contains("Haze")
 				|| transfer[6].contains("Fog") || transfer[6].contains("Drizzle")) {
-			sb.append("[" + "{\"class\":" + "\"rainy\"," + "\"suburb\":\"" + suburb + "\",\"weather\":"
-					+ transfer[6].split(",")[0] + ", \"degree\":\""
-					+ df.format((Double.parseDouble(transfer[11].split(",")[0]) - 273.15)) + "\","
-					+ "\"allEvents\": \"Fitness^Swimming^Badminton^Reading\"," + "\"allAddress\":\""
-					+ ReturnAddress.returnAddOnSuburb(suburb, "Fintness,Swimming,Badminton,Reading") + "\""
-					+ ",\"allEventsClass\":\"icon-sport-072^icon-sport-164^icon-sport-007^icon-education-137\",\"allEventsBgColor\":\"g-bg-pink"
-					+ "^g-bg-blue^g-bg-orange^g-bg-purple\"" + "}]");
+			sb.append("[{\"class\":\"rainy\",\"suburb\":\"").append(suburb).append("\",\"weather\":")
+					.append(transfer[6].split(",")[0]).append(", \"degree\":\"")
+					.append(df.format((Double.parseDouble(transfer[11].split(",")[0]) - 273.15)))
+					.append("\",\"allEvents\": \"Fitness^Swimming^Badminton^Reading\",\"allAddress\":\"")
+					.append(ReturnAddress.returnAddOnSuburb(suburb, "Fintness,Swimming,Badminton,Reading"))
+					.append("\",\"allEventsClass\":\"icon-sport-072^icon-sport-164^icon-sport-007^icon-education-137\",\"allEventsBgColor\":\"g-bg-pink^g-bg-blue^g-bg-orange^g-bg-purple\"}]");
 			return sb.toString();
 
 		} else if (transfer[6].contains("Clear") || transfer[6].contains("Cloud")) {
@@ -138,22 +136,14 @@ public class ReturnWeatherAndAct {
 			// return weather info, degree, activities, and the address when weather is
 			// clear and cloud
 
-			// sb.append("[" + "{\"class\":\"" + "rainy" + "\",\"suburb\":\"" + suburb +
-			// "\",\"weather\":"
-			sb.append("[" + "{\"class\":\"" + type + "\",\"suburb\":\"" + suburb + "\",\"weather\":"
-					+ transfer[6].split(",")[0] + ", \"degree\":\""
-					+ df.format((Double.parseDouble(transfer[11].split(",")[0]) - 273.15)) + "\","
-					+ "\"allEvents\": \"Bicycle,Running or Walking^Fitness^Swimming^Badminton^Reading\","
-					+ "\"allAddress\": \""
-					+ ReturnAddress.returnAddOnSuburb(suburb, "Park,Reading,Fintness,Swimming,Badminton") + "\""
-					+ ",\"allEventsClass\":\"icon-travel-090^icon-sport-072^icon-sport-164^icon-sport-007^icon-education-137\",\"allEventsBgColor\":\"g-bg-lightred^g-bg-pink^g-bg-blue^g-bg-orange^g-bg-purple\""
-					+ "}]");
+			sb.append("[" + "{\"class\":\"").append(type).append("\",\"suburb\":\"").append(suburb)
+					.append("\",\"weather\":").append(transfer[6].split(",")[0]).append(", \"degree\":\"")
+					.append(df.format((Double.parseDouble(transfer[11].split(",")[0]) - 273.15)))
+					.append("\",\"allEvents\": \"Bicycle,Running or Walking^Fitness^Swimming^Badminton^Reading\",\"allAddress\": \"")
+					.append(ReturnAddress.returnAddOnSuburb(suburb, "Park,Reading,Fintness,Swimming,Badminton"))
+					.append("\",\"allEventsClass\":\"icon-travel-090^icon-sport-072^icon-sport-164^icon-sport-007^icon-education-137\",\"allEventsBgColor\":\"g-bg-lightred^g-bg-pink^g-bg-blue^g-bg-orange^g-bg-purple\"}]");
 			return sb.toString();
 		}
-		// start time
-		long endTime = System.nanoTime();
-		long duration = (endTime - startTime)/1000000;
-		Logfile.log("Time for assembling data for returning frontend: "+ duration);
 		return sb.toString();
 	}
 
@@ -162,26 +152,5 @@ public class ReturnWeatherAndAct {
 	// // returnOnLatLon("-37.810,144.970");
 	// // returnOnPostOrSub("3000");
 	// }package
-
-	// public class CreateFileExample
-	// {
-	// public static void main( String[] args )
-	// {
-	// try {
-	//
-	// File file = new File("c:\\newfile.txt");
-	//
-	// if (file.createNewFile()){
-	// System.out.println("File is created!");
-	// }else{
-	// System.out.println("File already exists.");
-	// }
-	//
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// }
-	//
 
 }

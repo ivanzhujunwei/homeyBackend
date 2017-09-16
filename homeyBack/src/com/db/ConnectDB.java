@@ -42,13 +42,10 @@ public class ConnectDB {
 		try {
 			if (st != null) {
 				st.close();
-				st = null;
 			}
 			if (connect != null) {
 				connect.close();
-				connect = null;
 			}
-			// System.out.println(connect.isClosed());
 		} catch (SQLException e) {
 			System.out.println(e.toString());
 		}

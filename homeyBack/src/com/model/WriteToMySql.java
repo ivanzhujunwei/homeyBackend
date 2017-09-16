@@ -79,9 +79,4 @@ public class WriteToMySql {
 		return sb.toString();
 	}
 
-	// public static void main(String[] arg) {
-	// // getWeatherData("34,134");
-	// // connectionToMySql(1);
-	// returnAddOnPost("3000");
-	// }
 }

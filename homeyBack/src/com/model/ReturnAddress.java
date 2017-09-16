@@ -1,10 +1,6 @@
 package com.model;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,7 +26,10 @@ public class ReturnAddress {
 						.executeQuery("select name_of_trainer, address, suburb from hobby where suburb ='" + suburb
 								+ "' and kind = '" + id + "';");
 				while (ConnectDB.rs.next()) {
+					Logfile.log("enter the while loop of the connection for searching suburb and kind ");
 					sb.append(ConnectDB.rs.getString(1));
+					Logfile.log("enter the while loop of the connection for the first column and row data"
+							+ ConnectDB.rs.getString(1));
 					sb.append("=");
 					sb.append(ConnectDB.rs.getString(2));
 					sb.append(",");
@@ -46,8 +45,8 @@ public class ReturnAddress {
 			}
 		}
 		long endTime = System.nanoTime();
-		long duration = (endTime - startTime)/1000000;
-		Logfile.log("Time for assembling data for looping all sports: "+ duration);
+		long duration = (endTime - startTime) / 1000000;
+		Logfile.log("Time for assembling data for looping all sports: " + duration);
 		if (sb.length() > 0)
 			sb.deleteCharAt(sb.length() - 1);
 		ConnectDB.closeConnection();
@@ -97,7 +96,7 @@ public class ReturnAddress {
 			ConnectDB.closeConnection();
 			ConnectDB.rs = ConnectDB.getStatement().executeQuery(
 					"select name_of_trainer, address, suburb,comments, phone_number from hobby where suburb ='" + suburb
-							+ "' and kind = '11';");
+							+ "' and kind = '11' order by comments;");
 			sb.append("{\"allAddress\":\"");
 			while (ConnectDB.rs.next()) {
 				sb.append(ConnectDB.rs.getString(1));
@@ -127,17 +126,6 @@ public class ReturnAddress {
 		sb.append("\"}");
 		return sb.toString();
 	}
-
-	// 0 Counselling and Psychiatric Services =
-	// 1 9.00am - 5.00pm =
-	// 2 9.00am - 5.00pm =
-	// 3 9.00am - 5.00pm =
-	// 4 9.00am - 5.00pm =
-	// 5 9.00am - 5.00pm =
-	// 6 Closed =
-	// 7 Closed =
-	// 8 24, 109 (stop 18 Grant St) =
-	// 9 bus
 
 	public static int returnDay() {
 		Date now = new Date();
