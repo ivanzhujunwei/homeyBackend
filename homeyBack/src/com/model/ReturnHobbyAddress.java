@@ -28,7 +28,7 @@ public class ReturnHobbyAddress {
 			System.out.println(e.toString());
 		}
 		sb.deleteCharAt(sb.length() - 1);
-		sb.append("}");
+		sb.append("\"}");
 		// return jsonTransfer(hobbyArray); 之前返回所有jason 格式的address
 		return sb.toString();
 	}
