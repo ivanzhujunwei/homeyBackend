@@ -23,7 +23,6 @@ public class GetHobbyDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String paraValue = request.getParameter("hobbyKind");
-
 		ReturnHobbyDetail rd = new ReturnHobbyDetail();
 		response.setContentType("application/json");
 		response.getWriter().write(rd.connectionToMySql(paraValue));

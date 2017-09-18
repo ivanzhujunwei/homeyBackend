@@ -9,23 +9,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.model.WriteToMySql;
+import com.model.ReturnHobbyAddress;
 
-public class AngularJsServlet extends HttpServlet {
+public class ReturnHobbyAddServlet extends HttpServlet {
 	static Statement st = null;
 	static ResultSet rs = null;
 	private static final long serialVersionUID = 1L;
 
-	public AngularJsServlet() {
+	public ReturnHobbyAddServlet() {
 		super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String paraValue = request.getParameter("hobbyKind");
+		// // try master;
 		int kind = Integer.parseInt(paraValue);
-		WriteToMySql wri = new WriteToMySql();
+		ReturnHobbyAddress wri = new ReturnHobbyAddress();
 		response.setContentType("application/json");
-		response.getWriter().write(wri.connectionToMySql(kind));
+		response.getWriter().write(wri.returnHobbyAdd(kind));
 	}
 }

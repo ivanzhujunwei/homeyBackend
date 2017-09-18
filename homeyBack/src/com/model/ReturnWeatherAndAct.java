@@ -116,7 +116,6 @@ public class ReturnWeatherAndAct {
 	public static String returnAllInfo(String[] transfer, String suburb) {
 		StringBuilder sb = new StringBuilder();
 		DecimalFormat df = new DecimalFormat("#.#");
-		// start time
 		if (transfer[6].contains("Rain") || transfer[6].contains("Mist") || transfer[6].contains("Haze")
 				|| transfer[6].contains("Fog") || transfer[6].contains("Drizzle")) {
 			sb.append("[{\"class\":\"rainy\",\"suburb\":\"").append(suburb).append("\",\"weather\":")
@@ -135,7 +134,6 @@ public class ReturnWeatherAndAct {
 				type = "cloudy";
 			// return weather info, degree, activities, and the address when weather is
 			// clear and cloud
-
 			sb.append("[" + "{\"class\":\"").append(type).append("\",\"suburb\":\"").append(suburb)
 					.append("\",\"weather\":").append(transfer[6].split(",")[0]).append(", \"degree\":\"")
 					.append(df.format((Double.parseDouble(transfer[11].split(",")[0]) - 273.15)))

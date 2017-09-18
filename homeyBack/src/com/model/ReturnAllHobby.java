@@ -14,7 +14,7 @@ public class ReturnAllHobby {
 			ConnectDB.rs = ConnectDB.getStatement().executeQuery("SELECT id,name,image FROM dict;");
 			sb.append("[");
 			int i = 0;
-			while (ConnectDB.rs.next() && i < 6) {
+			while (ConnectDB.rs.next() && i < 4) {
 				sb.append("{\"id\":\"" + ConnectDB.rs.getInt(1) + "\"," + "\"name\":\"" + ConnectDB.rs.getString(2)
 						+ "\"," + "\"image\":\"" + ConnectDB.rs.getString(3) + "\"},");
 				i++;
