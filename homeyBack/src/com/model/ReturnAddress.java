@@ -70,13 +70,17 @@ public class ReturnAddress {
 	}
 
 	public static String returnAddFamVio(String postSub) {
-		try {
-			Integer.valueOf(postSub);
-			String suburb = ReturnWeatherAndAct.getSuburb(postSub);
-			return returnAdd(suburb);
-		} catch (Exception e) {
-			if (e.toString().contains("string")) {
-				return returnAdd(postSub);
+		if (postSub == null || postSub.length() == 0) {
+			return returnAdd("");
+		} else {
+			try {
+				Integer.valueOf(postSub);
+				String suburb = ReturnWeatherAndAct.getSuburb(postSub);
+				return returnAdd(suburb);
+			} catch (Exception e) {
+				if (e.toString().contains("string")) {
+					return returnAdd(postSub);
+				}
 			}
 		}
 		return "no place";
