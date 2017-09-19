@@ -54,4 +54,22 @@
 		<url-pattern>/postOrSubViolenceServlet</url-pattern>
 	</servlet-mapping>
 	
+		<servlet>
+		<servlet-name>addictionServlet</servlet-name>
+		<servlet-class>com.servlet.AddictionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>addictionServlet</servlet-name>
+		<url-pattern>/addictionServlet</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>financialServlet</servlet-name>
+		<servlet-class>com.servlet.FinancialServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>financialServlet</servlet-name>
+		<url-pattern>/financialServlet</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
