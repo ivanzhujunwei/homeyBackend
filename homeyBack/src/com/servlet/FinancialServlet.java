@@ -25,7 +25,7 @@ public class FinancialServlet extends HttpServlet {
 		String subOrPost = request.getParameter("subOrPost");
 		response.setContentType("application/json");
 		response.addHeader("Access-Control-Allow-Origin", "*");
-		response.getWriter().write(ReturnAddress.returnAddFamVio(subOrPost));
+		response.getWriter().write(ReturnAddress.returnAddFanacial(subOrPost));
 		// response.getWriter().write(ReturnAddress.returnAddFamVio("3000"));
 	}
 }
