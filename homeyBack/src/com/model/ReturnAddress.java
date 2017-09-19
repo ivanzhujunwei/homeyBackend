@@ -64,15 +64,33 @@ public class ReturnAddress {
 			return "hospital.png";
 		case "Counselling and Psychiatric Services":
 			return "counselling.png";
+		case "Legal / Financial Advice":
+			return "legalAdvice.png";
+		case "employ":
+			return "employ.png";
 		default:
 			return "null";
 		}
 	}
 
-	public static char[] returnAddFanacial(String subOrPost) {
+	public static String returnAddFanacial(String subOrPost) {
 		// TODO Auto-generated method stub
 		// 写一个 servlet 叫issueservlet 然后 把url用if框起来，不同的if返回不同的id 然后调用同一个方法
-		return null;
+
+		if (subOrPost == null || subOrPost.length() == 0) {
+			return returnAdd("", "13");
+		} else {
+			try {
+				Integer.valueOf(subOrPost);
+				String suburb = ReturnWeatherAndAct.getSuburb(subOrPost);
+				return returnAdd(suburb, "13");
+			} catch (Exception e) {
+				if (e.toString().contains("string")) {
+					return returnAdd(subOrPost, "13");
+				}
+			}
+		}
+		return "no place";
 	}
 
 	public static String returnAddAddiction(String subOrPost) {
