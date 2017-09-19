@@ -78,23 +78,6 @@ public class ReturnAddress {
 		// 写一个 servlet 叫issueservlet 然后 把url用if框起来，不同的if返回不同的id 然后调用同一个方法
 
 		if (subOrPost == null || subOrPost.length() == 0) {
-			return returnAdd("", "13");
-		} else {
-			try {
-				Integer.valueOf(subOrPost);
-				String suburb = ReturnWeatherAndAct.getSuburb(subOrPost);
-				return returnAdd(suburb, "13");
-			} catch (Exception e) {
-				if (e.toString().contains("string")) {
-					return returnAdd(subOrPost, "13");
-				}
-			}
-		}
-		return "no place";
-	}
-
-	public static String returnAddAddiction(String subOrPost) {
-		if (subOrPost == null || subOrPost.length() == 0) {
 			return returnAdd("", "12");
 		} else {
 			try {
@@ -104,6 +87,23 @@ public class ReturnAddress {
 			} catch (Exception e) {
 				if (e.toString().contains("string")) {
 					return returnAdd(subOrPost, "12");
+				}
+			}
+		}
+		return "no place";
+	}
+
+	public static String returnAddAddiction(String subOrPost) {
+		if (subOrPost == null || subOrPost.length() == 0) {
+			return returnAdd("", "13");
+		} else {
+			try {
+				Integer.valueOf(subOrPost);
+				String suburb = ReturnWeatherAndAct.getSuburb(subOrPost);
+				return returnAdd(suburb, "13");
+			} catch (Exception e) {
+				if (e.toString().contains("string")) {
+					return returnAdd(subOrPost, "13");
 				}
 			}
 		}
