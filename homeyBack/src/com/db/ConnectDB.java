@@ -21,9 +21,9 @@ public class ConnectDB {
 
 	public static Statement getStatement() {
 		connection();
-		String host = "jdbc:mysql://au-cdbr-azure-southeast-a.cloudapp.net:3306/homeydb?autoReconnect=true&useSSL=false";
-		String username = "be47b226a641c9";
-		String password = "136a5ca4";
+		String host = "jdbc:mysql://au-cdbr-azure-southeast-a.cloudapp.net:3306/acsm_9a1d59757257b73?autoReconnect=true&useSSL=false";
+		String username = "bd31f3f5bd89f5";
+		String password = "ce023044";
 		// String host =
 		// "jdbc:mysql://localhost:3306/Homey?autoReconnect=true&useSSL=false";
 		// String username = "root";

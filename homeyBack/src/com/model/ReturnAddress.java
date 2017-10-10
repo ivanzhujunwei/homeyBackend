@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.common.Logfile;
 import com.db.ConnectDB;
 
 public class ReturnAddress {
@@ -142,7 +141,6 @@ public class ReturnAddress {
 			}
 			sb.append("{\"allAddress\":\"");
 			while (ConnectDB.rs.next()) {
-				String abc = ConnectDB.rs.toString();
 				sb.append(ConnectDB.rs.getString(1));
 				sb.append("=");
 				sb.append(ConnectDB.rs.getString(2));
@@ -161,6 +159,8 @@ public class ReturnAddress {
 					sb.append("=");
 					sb.append(ConnectDB.rs.getString(4).split("=")[8]);
 				} else {
+					sb.append("=");
+					sb.append("not available");
 					sb.append("=");
 					sb.append("not available");
 				}

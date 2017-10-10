@@ -2,7 +2,6 @@ package com.model;
 
 import java.sql.SQLException;
 
-import com.common.Logfile;
 import com.db.ConnectDB;
 
 public class ReturnAllHobby {

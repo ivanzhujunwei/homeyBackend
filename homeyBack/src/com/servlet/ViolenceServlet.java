@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.model.ReturnAddress;
-import com.model.supportUserServlet;
 
 public class ViolenceServlet extends HttpServlet {
 	static Statement st = null;

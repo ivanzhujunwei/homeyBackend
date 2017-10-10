@@ -7,8 +7,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
 
-import com.common.Logfile;
-
 //weather api
 public class ReturnWeatherAndAct {
 	private static String BASE_URL = "http://api.openweathermap.org/data/2.5/weather?&APPID=ddc2cd1804e64a346f64e61c5a10c814&lat=<&lon=>";
@@ -135,7 +133,7 @@ public class ReturnWeatherAndAct {
 			// return weather info, degree, activities, and the address when weather is
 			// clear and cloud
 			sb.append("[" + "{\"class\":\"").append(type).append("\",\"suburb\":\"").append(suburb)
-					.append("\",\"weather\":").append(transfer[6].split(",")[0]).append(", \"degree\":\"")
+					.append("\",\"weather\":\"").append(type).append("\",\"degree\":\"")
 					.append(df.format((Double.parseDouble(transfer[11].split(",")[0]) - 273.15)))
 					.append("\",\"allEvents\": \"Bicycle,Running or Walking^Fitness^Swimming^Badminton^Reading\",\"allAddress\": \"")
 					.append(ReturnAddress.returnAddOnSuburb(suburb, "Park,Reading,Fintness,Swimming,Badminton"))

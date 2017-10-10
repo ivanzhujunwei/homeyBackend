@@ -27,6 +27,7 @@ public class ReturnHobbyAddServlet extends HttpServlet {
 		int kind = Integer.parseInt(paraValue);
 		ReturnHobbyAddress wri = new ReturnHobbyAddress();
 		response.setContentType("application/json");
+		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.getWriter().write(wri.returnHobbyAdd(kind));
 	}
 }

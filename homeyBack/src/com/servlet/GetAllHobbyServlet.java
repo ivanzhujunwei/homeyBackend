@@ -23,6 +23,7 @@ public class GetAllHobbyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("application/json");
+		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.getWriter().write(ReturnAllHobby.connectionToMySql());
 	}
 }

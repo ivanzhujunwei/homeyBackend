@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.common.Logfile;
-import com.model.AllEvent;
 import com.model.ReturnWeatherAndAct;
 
 public class WeatherServlet extends HttpServlet {
@@ -30,12 +28,14 @@ public class WeatherServlet extends HttpServlet {
 			String lon = request.getParameter("lon");
 
 			response.setContentType("application/json");
+			response.addHeader("Access-Control-Allow-Origin", "*");
 			response.getWriter().write(ReturnWeatherAndAct.returnOnLatLon(lat + "," + lon));
-			// response.getWriter().write(ReturnWeatherAndAct.returnOnLatLon("-37.8770506,147.04464130000002"));
+
 		} else if ("/postOrSubServlet".equalsIgnoreCase(servletPath)) {
 			String postOrSub = request.getParameter("postOrSub");
 
 			response.setContentType("application/json");
+			response.addHeader("Access-Control-Allow-Origin", "*");
 			response.getWriter().write(ReturnWeatherAndAct.returnOnPostOrSub(postOrSub));
 			// response.getWriter().write(ReturnWeatherAndAct.returnOnPostOrSub("3000"));
 		}

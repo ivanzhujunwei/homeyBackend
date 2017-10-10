@@ -25,6 +25,7 @@ public class GetHobbyDetailServlet extends HttpServlet {
 		String paraValue = request.getParameter("hobbyKind");
 		ReturnHobbyDetail rd = new ReturnHobbyDetail();
 		response.setContentType("application/json");
+		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.getWriter().write(rd.connectionToMySql(paraValue));
 	}
 }
