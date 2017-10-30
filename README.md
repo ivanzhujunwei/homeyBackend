@@ -1,3 +1,4 @@
 # homeyBackend
 Backend project
-welcome
+## This project is mainly contributed by Jianhua
+With some support from me.
